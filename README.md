@@ -2,5 +2,6 @@
 
 OS Lab Practicals done in C language
 
-> Contributions are welcome
-> For any queries, contact [me](zameel7.github.io)
+  > Contributions are welcome.
+  
+  > For any queries, contact [me](zameel7.github.io)
