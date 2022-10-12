@@ -1,7 +1,6 @@
 #include <stdio.h>
 
-typedef struct Details
-{
+typedef struct Details {
     int id, size, alloc;
 } details;
 

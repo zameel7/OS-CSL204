@@ -35,9 +35,8 @@ int main() {
         {
             if (memory[j].size > memory[j+1].size)
             {
-                int temp, temp1;
-                temp = memory[j].size;
-                temp1 = memory[j].id;
+                int temp = memory[j].size;
+                int temp1 = memory[j].id;
                 memory[j].size = memory[j+1].size;
                 memory[j].id = memory[j+1].id;
                 memory[j+1].size = temp;

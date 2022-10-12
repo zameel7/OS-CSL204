@@ -38,7 +38,7 @@ int main() {
             }
         }
     }
-    printf("\nid  tt wt\n");
+    printf("\nID\tTT\tWT\n");
     for(time=0, count=0; remain!=0;) {
         if(p[count].rt<=TQ && p[count].rt>0) {
             time += p[count].rt;
@@ -52,13 +52,13 @@ int main() {
         }
         if (p[count].rt == 0 && flag == 1) 
         {
-            printf("%d %d %d\n", count+1, time-p[count].at, time-p[count].at-p[count].bt);
+            printf("%d\t%d\t%d\n", p[count].id, time-p[count].at, time-p[count].at-p[count].bt);
             remain--;
             wt += time-p[count].at-p[count].bt;
             tt += time-p[count].at;
             flag = 0;
         }
-        if (count == n-1)
+        if ((count == n-1) || (p[count+1].at > time))
         {
             count = 0;
         }
@@ -66,10 +66,7 @@ int main() {
         {
             count += 1;
         }
-        else {
-            count = 0;
-        }
     }
-    printf("\nAvg WT: %f\nAvg TT: %f\n", (float)wt/n, (float)tt/n);
+    printf("\nAvg WT: %f\nAvg TT: %f\n", (float)wt/(float)n, (float)tt/(float)n);
     return 0;
 }
