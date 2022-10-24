@@ -8,7 +8,7 @@ typedef struct PROCESS
 
 int main() {
     int n;
-    float awt, att;
+    float awt=0, att=0;
     process p[10];
     printf("Enter the no. of processes: ");
     scanf("%d", &n);
@@ -23,7 +23,7 @@ int main() {
     {
         for (int j = 0; j < n-i-1; j++)
         {
-            if (p[j].pr > p[j+1].bt)
+            if (p[j].pr > p[j+1].pr)
             {
                 int temp1 = p[j].bt;
                 int temp2 = p[j].id;
@@ -38,19 +38,21 @@ int main() {
         }
     }
     p[0].wt = 0;
-    p[0].tt = p[0].bt+p[0].wt;
-    p[0].ct = p[0].tt;
+    p[0].tt = p[0].bt;
+    awt += p[0].wt;
+    att += p[0].tt;
     for (int i = 1; i < n; i++)
     {
-        p[i].ct = p[i-1].ct + p[i].bt;
-        p[i].tt = p[i].ct;
+        p[i].tt = p[i-1].tt + p[i].bt;
         p[i].wt = p[i].tt - p[i].bt;
         awt += p[i].wt;
         att += p[i].tt;
     }
-    printf("\nPID\tBT\tWT\tTT\n");
+    printf("\nPID\tPRI\tBT\tWT\tTT\n");
     for (int i = 0; i < n; i++)
     {
-        printf("%d\t%d\t%d\t%d\n", p[i].id+1, p[i].bt, p[i].wt, p[i].tt);
+        printf("%d\t%d\t%d\t%d\t%d\n", p[i].id+1, p[i].pr, p[i].bt, p[i].wt, p[i].tt);
     }
+    printf("Average waiting time: %f\n", (float)awt/n);
+    printf("Average turnaround tme: %f\n", (float)att/n);
 }
