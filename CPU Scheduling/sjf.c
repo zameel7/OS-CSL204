@@ -56,6 +56,6 @@ int main() {
     {
         printf("\t\t%d", p[i].tt);
     }
-    printf("Average waiting time: %f\n", (float)awt/n);
+    printf("\nAverage waiting time: %f\n", (float)awt/n);
     printf("Average turnaround tme: %f\n", (float)att/n);
 }
