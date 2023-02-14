@@ -9,7 +9,7 @@ typedef struct PROCESS
 int main() {
     int n;
     float awt, att;
-    process p[10];
+    process p[10], t[1];
     printf("Enter the no. of processes: ");
     scanf("%d", &n);
     printf("Process details: \n");
@@ -25,12 +25,9 @@ int main() {
         {
             if (p[j].bt > p[j+1].bt)
             {
-                int temp1 = p[j].bt;
-                int temp2 = p[j].id;
-                p[j].bt = p[j+1].bt;
-                p[j].id = p[j+1].id;
-                p[j+1].bt = temp1;
-                p[j+1].id = temp2;
+                t[1] = p[j];
+                p[j] = p[j+1];
+                p[j+1] = t[1];
             }
         }
     }
@@ -49,6 +46,15 @@ int main() {
     for (int i = 0; i < n; i++)
     {
         printf("%d\t%d\t%d\t%d\n", p[i].id+1, p[i].bt, p[i].wt, p[i].tt);
+    }
+    for (int i = 0; i < n; i++)
+    {
+        printf("|\t%d\t", p[i].id);
+    }
+    printf("|\n0");
+    for (int i = 0; i < n; i++)
+    {
+        printf("\t\t%d", p[i].tt);
     }
     printf("Average waiting time: %f\n", (float)awt/n);
     printf("Average turnaround tme: %f\n", (float)att/n);
