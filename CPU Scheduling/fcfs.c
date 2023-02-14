@@ -1,58 +1,64 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef struct PROCESS
 {
-    int id, bt, at, wt, tt, ct;
-}process;
+    int id, at, bt, wt, tt, ct;
+} process;
 
 
 int main() {
+    process P[10], temp[1];
     int n;
-    float awt, att;
-    process p[10];
+    float awt=0, att=0;
+
+    printf("FCFS:\n");
+
     printf("Enter the no. of processes: ");
     scanf("%d", &n);
-    printf("Process details: \n");
+
     for (int i = 0; i < n; i++)
     {
-        printf("P[%d]: Burst time, Arrival time => ", i+1);
-        scanf("%d%d", &p[i].bt, &p[i].at);
-        p[i].id = i;
+        printf("Enter the arrival time and burst time of P[%d]: ", i);
+        scanf("%d%d", &P[i].at,&P[i].bt);
+        P[i].id = i;
     }
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < n-i-1; j++)
         {
-            if (p[j].at > p[j+1].at)
+            if (P[i].at > P[i+1].at)
             {
-                int temp1 = p[j].at;
-                int temp2 = p[j].bt;
-                int temp3 = p[j].id;
-                p[j].at = p[j+1].at;
-                p[j].bt = p[j+1].bt;
-                p[j].id = p[j+1].id;
-                p[j+1].at = temp1;
-                p[j+1].bt = temp2;
-                p[j+1].id = temp3;
-            }
+                temp[0] = P[i];
+                P[i] = P[i+1];
+                P[i+1] = temp[0];
+            }   
         }
     }
-    p[0].wt = 0;
-    p[0].tt = p[0].bt+p[0].wt;
-    p[0].ct = p[0].at+p[0].tt;
+    printf("ID\tBT\tAT\tWT\tCT\tTT\n");
+    P[0].wt = 0;
+    P[0].tt = P[0].bt;
+    P[0].ct = P[0].tt - P[0].at;
+    att += P[0].tt;
+    printf("%d\t%d\t%d\tW%d\t%d\t%d\n", P[0].id, P[0].bt, P[0].at, P[0].wt, P[0].ct, P[0].tt);
     for (int i = 1; i < n; i++)
     {
-        p[i].ct = p[i-1].ct + p[i].bt;
-        p[i].tt = p[i].ct - p[i].at;
-        p[i].wt = p[i].tt - p[i].bt;
-        awt += p[i].wt;
-        att += p[i].tt;
+        P[i].ct = P[i-1].ct + P[i].bt;
+        P[i].tt = P[i].ct - P[i].at;
+        P[i].wt = P[i].tt - P[i].bt; 
+        awt += P[i].wt;
+        att += P[i].tt;
+        printf("%d\t%d\t%d\tW%d\t%d\t%d\n", P[i].id, P[i].bt, P[i].at, P[i].wt, P[i].ct, P[i].tt);
     }
-    printf("\nPID\tBT\tWT\tTT\n");
     for (int i = 0; i < n; i++)
     {
-        printf("%d\t%d\t%d\t%d\n", p[i].id+1, p[i].bt, p[i].wt, p[i].tt);
+        printf("|\t%d\t", P[i].id);
     }
-    printf("Average waiting time: %f\n", (float)awt/n);
-    printf("Average turnaround tme: %f\n", (float)att/n);
+    printf("|\n0");
+    for (int i = 0; i < n; i++)
+    {
+        printf("\t\t%d", P[i].tt);
+    }
+
+    printf("Average Waiting time: %f\nAverage Turnaround time: %f", awt/(float)n, att/(float)n);
 }
