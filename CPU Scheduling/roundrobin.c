@@ -4,7 +4,7 @@ typedef struct PROCESS {
     int id, bt, at, rt;
 } process;
 
-process p[10];
+process p[10], t[1];
 
 int main() {
     int n, time, count, TQ, flag=0;
@@ -24,17 +24,9 @@ int main() {
     for(int i = 0; i < n; i++) {
         for(int j = 0; j < n-i-1; j++) {
             if(p[j].at > p[j+1].at) {
-                int temp = p[j].id;
-                int temp1 = p[j].bt;
-                int temp2 = p[j].at;
-                p[j].id = p[j+1].id;
-                p[j].at = p[j+1].at;
-                p[j].bt = p[j+1].bt;
-                p[j+1].id = temp;
-                p[j+1].bt = temp1;
-                p[j+1].at = temp2;
-                p[j].rt = p[j].bt;
-                p[j+1].rt = p[j+1].bt;
+                t[1] = p[j];
+                p[j] = p[j+1];
+                p[j+1] = t[1];
             }
         }
     }
